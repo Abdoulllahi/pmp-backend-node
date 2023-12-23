@@ -8,7 +8,7 @@
 
 import { InferSchemaType, Schema, model } from 'mongoose';
 
-const addressSchema = new Schema({
+export const addressSchema = new Schema({
     city: String,
 })
 
