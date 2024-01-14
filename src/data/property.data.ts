@@ -16,7 +16,7 @@ export class PropertyData {
             return property;
         } catch (error) {
             console.error('Error while creating the property', error);
-            throw new Error("Error creating property");
+            throw new Error('Error creating property');
         }
     }
 
@@ -31,20 +31,23 @@ export class PropertyData {
             return properties;
         } catch (error) {
             console.error('Error while getting properties', error);
-            throw new Error("Error returning properties");
+            throw new Error('Error returning properties');
         }
     }
 
     async updatePropertyById(id: string, updatedProperty: Partial<IProperty>): Promise<IProperty> {
         try {
-            const property = await Property.findByIdAndUpdate(id, updatedProperty, { new: true });
+            const property = await Property.findByIdAndUpdate(
+                id,
+                { $set: { ...updatedProperty } },
+                {returnDocument: 'after'});
             if (!property) {
-                throw new Error("Property not found");
+                throw new Error('Property not found');
             }
             return property;
         } catch (error) {
             console.error('Error while updating the property', error);
-            throw new Error("Error updating property");
+            throw new Error('Error updating property');
         }
     }
 }

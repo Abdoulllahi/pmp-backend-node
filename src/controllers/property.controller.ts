@@ -35,34 +35,32 @@ export const getProperties: RequestHandler<unknown, IResponse<IProperty[]>, unkn
         }
     }
 
-// export const updatePropertyById: RequestHandler<{ id: string }, IResponse<IProperty>, Partial<IProperty>> =
-//     async (request, response, next) => {
-//         try {
-//             // TODO: Validate request body
-//             // TODO: Validate request params
-//             const updatedPropertyData: Partial<IProperty> = {
-//                 ...request.body,
-//                 updatedAt: new Date()
-//             };
+export const updatePropertyById: RequestHandler<{ id: string }, IResponse<IProperty>, Partial<IProperty>> =
+    async (request, response, next) => {
+        try {
+            // TODO: Validate request body
+            // TODO: Validate request params
+            const updatedPropertyData: Partial<IProperty> = {
+                ...request.body,
+                updatedAt: new Date()
+            };
 
-//             const updatedProperty = await PropertyService.updatePropertyById(request.params.id, updatedPropertyData);
-//             if (!updatedProperty) {
-//                 return response.status(404).json({ success: false, message: 'Property not found' });
-//             }
-//             // TODO: Send email to the user
-//             response.status(200).json({
-//                 success: true,
-//                 message: 'Property updated successfully',
-//                 data: updatedProperty
-//             });
-//         } catch (error) {
-//             console.error('Error updating property:', error);
-//             response.json({ success: false, message: 'Error updating the property' });
-//             next(error);
-//         }
-//     };
-
-
+            const updatedProperty = await PropertyService.updatePropertyById(request.params.id, updatedPropertyData);
+            if (!updatedProperty) {
+                return response.status(404).json({ success: false, message: 'Property not found' });
+            }
+            // TODO: Send email to the user
+            response.status(200).json({
+                success: true,
+                message: 'Property updated successfully',
+                data: updatedProperty
+            });
+        } catch (error) {
+            console.error('Error updating property:', error);
+            response.json({ success: false, message: 'Error updating the property' });
+            next(error);
+        }
+    };
 
 // 1. request params
 // 2. response body
