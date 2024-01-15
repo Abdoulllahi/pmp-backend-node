@@ -7,10 +7,11 @@
  */
 
 import { Router } from "express";
-import { addProperty, getProperties } from "../controllers/property.controller";
+import { addProperty, getProperties, getPropertyById, updatePropertyById } from "../controllers/property.controller";
 const router = Router();
 
 router.get('/', getProperties);
+router.get('/:propertyId', getPropertyById);
 router.post('/', addProperty);
-
+router.put('/:propertyId', updatePropertyById);
 export default router;

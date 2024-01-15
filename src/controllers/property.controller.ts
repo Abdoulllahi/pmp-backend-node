@@ -1,7 +1,7 @@
 /**
  * @ Author: Abdou Lahi DIOP - Copyright © 2023 Abdallah
  * @ Creation Date: December 20, 2023 at 9:17:07 PM  CST
- * @ Last Modification Date: December 21, 2023 at 5:13:58 PM  CST
+ * @ Last Modification Date: January 14, 2023 at 5:13:58 PM  CST
  * @ Modified by: Abdou Lahi DIOP
  * @ Description:
  */
@@ -35,7 +35,26 @@ export const getProperties: RequestHandler<unknown, IResponse<IProperty[]>, unkn
         }
     }
 
-export const updatePropertyById: RequestHandler<{ id: string }, IResponse<IProperty>, Partial<IProperty>> =
+export const getPropertyById: RequestHandler<{ propertyId: string }, IResponse<IProperty>, unknown, unknown> =
+    async (request, response, next) => {
+        try {
+            const property = await PropertyService.findPropertyById(request.params.propertyId);
+            if (!property) {
+                return response.status(404).json({ success: false, message: 'Property not found' });
+            }
+            response.status(200).json({
+                success: true,
+                data: property
+            });
+        } catch (error) {
+            console.error('Error getting property', error);
+            response.json({ success: false, message: `Error getting property with id ${request.params.propertyId}` });
+            next(error);
+        }
+    }
+
+
+export const updatePropertyById: RequestHandler<{ propertyId: string }, IResponse<IProperty>, Partial<IProperty>> =
     async (request, response, next) => {
         try {
             // TODO: Validate request body
@@ -45,7 +64,7 @@ export const updatePropertyById: RequestHandler<{ id: string }, IResponse<IPrope
                 updatedAt: new Date()
             };
 
-            const updatedProperty = await PropertyService.updatePropertyById(request.params.id, updatedPropertyData);
+            const updatedProperty = await PropertyService.updatePropertyById(request.params.propertyId, updatedPropertyData);
             if (!updatedProperty) {
                 return response.status(404).json({ success: false, message: 'Property not found' });
             }
