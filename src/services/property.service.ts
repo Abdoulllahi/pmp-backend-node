@@ -31,6 +31,16 @@ export class PropertyService {
         }
     }
 
+    async findPropertyById(id: string): Promise<IProperty> {
+        try {
+            const property = await PropertyData.findPropertyById(id);
+            return property;
+        } catch (error) {
+            console.error('Service error', error);
+            throw new Error('Error while accessing data');
+        }
+    }
+
     async updatePropertyById(id: string, updatedProperty: Partial<IProperty>): Promise<IProperty> {
         try {
             const property = await PropertyData.updatePropertyById(id, updatedProperty);

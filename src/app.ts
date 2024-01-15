@@ -45,7 +45,8 @@ app.use(morgan('dev'));
 app.use(json());
 
 // routes
-app.use('/', propertyRouter);
+// app.use('/', propertyRouter);
+app.use('/properties', propertyRouter);
 
 // error handling
 

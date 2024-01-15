@@ -35,6 +35,18 @@ export class PropertyData {
         }
     }
 
+    async findPropertyById(id: string): Promise<IProperty> {
+        try {
+            const property = await Property.findOne({_id: id})
+            console.log(property)
+            if (!property) throw new Error('Property undefinde');
+            return property;
+        } catch (error) {
+            console.error(`Error getting the property with Id ${id}`);
+            throw new Error('Error returning property');
+        }
+    }
+
     async updatePropertyById(id: string, updatedProperty: Partial<IProperty>): Promise<IProperty> {
         try {
             const property = await Property.findByIdAndUpdate(
