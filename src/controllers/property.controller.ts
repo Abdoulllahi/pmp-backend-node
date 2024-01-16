@@ -11,7 +11,7 @@ import { IResponse } from "../models/interfaces/types";
 import { IProperty } from "../models/property.model";
 import PropertyService from "../services/property.service";
 
-export const addProperty: RequestHandler<unknown, IResponse<IProperty>, IProperty>
+export const addProperty: RequestHandler<unknown, IResponse<IProperty>, Partial<IProperty>>
     = async (request, response, next) => {
         try {
             const createdProperty = await PropertyService.addProperty({ ...request.body });
